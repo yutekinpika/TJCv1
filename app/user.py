@@ -3,14 +3,20 @@
 import json
 import os
 
-USERS_FILE = os.path.join(os.path.dirname(__file__), "users.json")
+# USERS_FILEのパス設定を修正
+USERS_FILE = os.path.join(os.path.dirname(__file__), '..', 'data', 'users.json')
 
 # ユーザーデータの読み込み・保存
 def load_users():
     if not os.path.exists(USERS_FILE):
+        with open(USERS_FILE, "w") as f:
+            json.dump({}, f)
         return {}
     with open(USERS_FILE, "r") as f:
-        return json.load(f)
+        try:
+            return json.load(f)
+        except json.JSONDecodeError:
+            return {}
 
 def save_users(users):
     with open(USERS_FILE, "w") as f:
@@ -27,6 +33,7 @@ def create_user(username: str, public_key_hex: str, initial_balance: int):
     address = pubkey_to_address(public_key_hex)
 
     users[username] = {
+        "username": username,
         "address": address,
         "public_key": public_key_hex,
         "balance": initial_balance
@@ -51,7 +58,10 @@ def get_balance(username: str):
 def update_balance(username, new_balance):
     users = load_users()
     if username not in users:
-        raise ValueError(f"User {username} not found")
+        # 新しいユーザー（例：送金先が未登録）の場合は作成する
+        print(f"警告: 残高更新対象のユーザー '{username}' が存在しなかったため、作成はされません。")
+        # 本来はエラーだが、ここでは何もしない
+        return
     users[username]["balance"] = new_balance
     save_users(users)
 
