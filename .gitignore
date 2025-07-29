@@ -1,0 +1,56 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.env/
+.envrc
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Log & cache
+*.log
+*.sqlite3
+*.db
+.cache/
+
+# Compiled C extensions
+*.so
+
+# Testing
+.coverage
+.tox/
+nosetests.xml
+test-results/
+
+# Jupyter Notebook checkpoints (in case)
+.ipynb_checkpoints/
+
+# Git itself
+.git/
+
+# Project-specific
+users.json
+transactions.json
+blockchain.json
+*.pem
+*.key
+
+# Local user wallet data (client-specific)
+client_app/users/
+
+# App data (user/tx/block info)
+data/
+
+# JSON files (optional, if they are inside data/)
+*.json
