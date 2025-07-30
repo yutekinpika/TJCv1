@@ -33,14 +33,13 @@ def create_user(username: str, public_key_hex: str, initial_balance: int):
     address = pubkey_to_address(public_key_hex)
 
     users[username] = {
-        "username": username,
         "address": address,
         "public_key": public_key_hex,
         "balance": initial_balance
     }
 
     save_users(users)
-    return users[username]
+    return {"username": username, **users[username]}
 
 # ユーザー取得
 def get_user(username: str):

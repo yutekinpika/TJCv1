@@ -71,8 +71,8 @@ class Blockchain:
 
                 # エラーチェックはAPI側で済んでいる前提だが、念のため
                 if sender and recipient:
-                    update_balance(sender['username'], sender['balance'] - tx['amount'])
-                    update_balance(recipient['username'], recipient['balance'] + tx['amount'])
+                    update_balance(tx['from'], sender['balance'] - tx['amount'])
+                    update_balance(tx['to'], recipient['balance'] + tx['amount'])
 
     # --- データ永続化メソッド ---
     def _save_chain(self):
